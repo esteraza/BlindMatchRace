@@ -44,7 +44,7 @@
         <!-- API Key using my Laptop -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBLRp4IgfFjra9HiCEnrqaHHgOC7akaC_I" />
+            android:value="AIzaSyB34Ie9Z43-K4hk0aspaBYXHIZekKcWM5A" />
 
         <activity android:name="com.blindmatchrace.MenuActivity" >
         </activity>
