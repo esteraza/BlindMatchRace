@@ -53,12 +53,10 @@ public class MainActivity extends FragmentActivity implements LocationListener {
 	private TextView tvLat, tvLng, tvUser, tvSpeed, tvDirection, tvEvent;
 
 	@Override
-	/// SCREEN_ORIENTATION_SENSOR screen oriantion
-	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		// Disables lock-screen and keeps screen on.
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
