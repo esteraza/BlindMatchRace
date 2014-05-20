@@ -14,9 +14,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,17 +68,42 @@ public class LoginActivity extends Activity {
 	private TextView tvLoginStatusMessage;
 
 	@Override
+	/// SCREEN_ORIENTATION_SENSOR screen oriantion
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
 		// Disables lock-screen and keeps screen on.
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//gps
+		 final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
 
+		    if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+		        buildAlertMessageNoGps();
+		    }
 		loadLastUser();
 		initialize();
+	}
+	
+//gps fun
+	  private void buildAlertMessageNoGps() {
+	    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+	           .setCancelable(false)
+	           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	               public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+	                   startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+	               }
+	           })
+	           .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	               public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+	                    dialog.cancel();
+	               }
+	           });
+	    final AlertDialog alert = builder.create();
+	    alert.show();
 	}
 
 	/**
@@ -152,6 +181,8 @@ public class LoginActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
+		
+		
 	}
 
 	/**
@@ -189,7 +220,8 @@ public class LoginActivity extends Activity {
 		}
 
 		// Check for a valid user.
-		if (TextUtils.isEmpty(mUser)) {
+		/// etUser.getText().toString() no emptyuser
+		if (TextUtils.isEmpty(etUser.getText().toString())) {
 			etUser.setError(getString(R.string.error_field_required));
 			focusView = etUser;
 			cancel = true;
