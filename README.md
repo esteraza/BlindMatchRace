@@ -2,6 +2,9 @@ BlindMatchRace Instructions:
 ===========
 the application have two login option as a tow different users that each one of them have a different goal.
 
+![My image](C:\Users\ESTER\Documents)
+
+
 Admin:
 In order to start a new event, sign in as admin with the desired event number.
 
