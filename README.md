@@ -1,3 +1,3 @@
-BlindMatchRace
+BlindMatchRace Instructions:
 ===========
-try num 1
+
